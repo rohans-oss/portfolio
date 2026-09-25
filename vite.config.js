@@ -28,8 +28,12 @@ function localApi() {
   }
   return {
     name: 'local-api',
-    configureServer: (s) => s.middlewares.use(handler),
-    configurePreviewServer: (s) => s.middlewares.use(handler),
+    configureServer(s) {
+      s.middlewares.use(handler)
+    },
+    configurePreviewServer(s) {
+      s.middlewares.use(handler)
+    },
   }
 }
 
