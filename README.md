@@ -13,14 +13,33 @@ Personal portfolio with a built-in AI assistant that answers questions about my 
 - **AI chat** grounded only in my résumé data, with suggested questions, typewriter replies and an offline fallback
 - Fully responsive, keyboard accessible (Esc closes dialogs), respects `prefers-reduced-motion`
 
-## Run locally
+## Run locally (VS Code)
+
+**Requires Node.js 20.19+ or 22+** ([download](https://nodejs.org)). Check with `node -v`.
 
 ```bash
+git clone https://github.com/rohans-oss/portfolio.git
+cd portfolio
 npm install
-npm run dev        # site on http://localhost:5173 (chat uses offline mode)
+npm run dev
 ```
 
-To test the real AI locally: `npm i -g vercel && vercel dev`.
+The site opens at **http://localhost:5173**. In VS Code you can also press **Ctrl+Shift+B** (Cmd+Shift+B on Mac) to start it.
+
+### Turn on the full AI chat locally (optional)
+
+1. Copy `.env.example` to a new file named `.env`
+2. Paste one free key into it, e.g. `GEMINI_API_KEY=your-key-here`
+3. Restart `npm run dev`
+
+Without a key the chat still works using built-in offline answers from the résumé data. `.env` is git-ignored, so your key never gets pushed.
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server with hot reload + local AI endpoint |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Serve the production build at http://localhost:4173 |
+| `npm run deploy:pages` | Build and publish to GitHub Pages |
 
 ## Deploy (Vercel, recommended)
 
