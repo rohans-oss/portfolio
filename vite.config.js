@@ -1,4 +1,6 @@
 import react from '@vitejs/plugin-react'
+import { resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 
 // Serves api/chat.js locally during `npm run dev` and `npm run preview`,
@@ -15,7 +17,7 @@ function localApi() {
         headers: { 'content-type': 'application/json', 'x-forwarded-for': req.socket.remoteAddress || 'local' },
         body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
       })
-      const { POST } = await import(`./api/chat.js?t=${Date.now()}`)
+      const { POST } = await import(`${pathToFileURL(resolve(process.cwd(), 'api/chat.js')).href}?t=${Date.now()}`)
       const response = req.method === 'POST' ? await POST(request) : new Response('Method not allowed', { status: 405 })
       res.statusCode = response.status
       response.headers.forEach((v, k) => res.setHeader(k, v))
