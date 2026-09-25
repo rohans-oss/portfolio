@@ -100,7 +100,7 @@ export function Hero({ onOpenProject, ready }) {
               <dd>3rd-year B.Tech in Computer Science, {p.school}</dd>
             </div>
             <div>
-              <dt>Raised in</dt>
+              <dt>Based in</dt>
               <dd>{p.location}</dd>
             </div>
           </motion.dl>
