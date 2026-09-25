@@ -11,7 +11,7 @@ export const profile = {
   phoneRaw: '+919019919218',
   github: 'https://github.com/rohans-oss',
   githubHandle: 'rohans-oss',
-  photo: '/rohan.webp',
+  photo: `${import.meta.env?.BASE_URL ?? '/'}rohan.webp`,
   availability: 'Open to software and AI/ML internships',
   roles: [
     'Machine Learning Engineer',
