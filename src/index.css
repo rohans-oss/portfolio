@@ -130,35 +130,6 @@ em {
   z-index: 120;
 }
 
-.cursor-dot,
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 200;
-  border-radius: 50%;
-}
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  background: var(--accent-hi);
-}
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
-  border: 1px solid var(--line-strong);
-  transition: width 0.3s var(--ease), height 0.3s var(--ease), margin 0.3s var(--ease), background 0.3s, border-color 0.3s;
-}
-.cursor-ring.is-hover {
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
-  background: rgba(208, 32, 43, 0.12);
-  border-color: var(--accent);
-}
 
 .preloader {
   position: fixed;
@@ -573,34 +544,6 @@ em {
   display: flex;
   justify-content: space-between;
   color: rgba(255, 255, 255, 0.8);
-}
-.float-badge {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background: rgba(23, 20, 20, 0.8);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--line-strong);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  animation: bob 6s ease-in-out infinite;
-}
-.float-badge strong {
-  font-size: 1.4rem;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-.float-badge span {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-.fb-1 { left: -44px; top: 16%; }
-.fb-2 { right: -26px; top: 46%; animation-delay: -2s; }
-.fb-3 { left: -20px; bottom: 12%; animation-delay: -4s; }
-@keyframes bob {
-  50% { transform: translateY(-10px); }
 }
 .scroll-cue {
   position: absolute;
@@ -1570,9 +1513,6 @@ em {
   .hero-photo {
     aspect-ratio: 1 / 1;
   }
-  .fb-1 { left: -8px; }
-  .fb-2 { right: -8px; }
-  .fb-3 { display: none; }
   .hero-title {
     margin-top: 22px;
   }
@@ -1641,12 +1581,6 @@ em {
   }
   .hero-photo-wrap {
     max-width: 260px;
-  }
-  .float-badge {
-    padding: 8px 12px;
-  }
-  .float-badge strong {
-    font-size: 1.1rem;
   }
   .hero-cta > div {
     width: 100%;

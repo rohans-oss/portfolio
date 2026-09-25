@@ -2,6 +2,7 @@
 // static hosting, or no API key configured). Scores intents by keyword
 // overlap and composes answers from profile.js, so it never invents facts.
 import { profile as p, projects } from '../data/profile.js'
+import { REFUSAL, isAboutRohan } from './scope.js'
 
 const norm = (s) =>
   s
@@ -33,10 +34,10 @@ const intents = [
       `Hi! I'm Rohan's AI assistant. Ask me about his projects, skills, education, or how to reach him.`,
   },
   {
-    keys: ['who', 'yourself', 'introduce', 'rohan', 'background', 'summary', 'overview', 'bio'],
+    keys: ['who', 'yourself', 'introduce', 'background', 'summary', 'overview', 'bio'],
     answer: () =>
       `${p.name} is a ${p.education.degree} student at ${p.education.school}, ${p.education.city} (CGPA ${p.education.cgpa.toFixed(1)}/10, graduating ${p.education.graduation}).\n\n${p.summary}\n\nHe's built ${projects.length} AI/ML systems: ${projects
-        .map((x) => `**${x.name}** (${x.tagline.toLowerCase()})`)
+        .map((x) => `**${x.name}** (${x.tagline})`)
         .join(', ')}.`,
   },
   {
@@ -56,6 +57,14 @@ const intents = [
     weight: 2,
     answer: () => projectAnswer(pr),
   })),
+  {
+    keys: ['result', 'results', 'performance', 'perform', 'metrics', 'accuracy', 'numbers', 'achievements', 'achievement', 'impact'],
+    weight: 1.1,
+    answer: () =>
+      `Headline results across Rohan's projects:\n\n${projects
+        .map((x) => `- **${x.name}:** ${x.results.map((r) => `${r.k} (${r.v})`).join(', ')}`)
+        .join('\n')}`,
+  },
   {
     keys: ['skill', 'skills', 'stack', 'tech', 'technologies', 'tools', 'know', 'language', 'languages', 'python', 'javascript', 'next', 'framework'],
     answer: () =>
@@ -99,6 +108,7 @@ const intents = [
 ]
 
 export function localAnswer(question) {
+  if (!isAboutRohan(question)) return REFUSAL
   const q = norm(question)
   const words = new Set(q.split(' '))
   let best = null
@@ -116,5 +126,8 @@ export function localAnswer(question) {
     }
   }
   if (best) return best.answer()
-  return `I only know about Rohan: his projects, skills, education and how to contact him. Try asking _"What is TrustRail?"_ or _"Is he open to internships?"_`
+  // On-topic but nothing specific matched: introduce Rohan if he was named,
+  // otherwise be honest that the detail isn't known.
+  if (/\brohan|\babout (him|you)\b/.test(q)) return intents.find((i) => i.keys.includes('who')).answer()
+  return `I don't have that detail about Rohan. You can ask him directly at [${p.email}](mailto:${p.email}), or ask me about his projects, skills or education.`
 }

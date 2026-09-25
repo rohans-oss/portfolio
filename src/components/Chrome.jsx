@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, Sparkles, X } from 'lucide-react'
 import { ease } from './ui'
 
@@ -33,32 +33,6 @@ export function Preloader({ onDone }) {
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
-
-export function Cursor() {
-  const x = useMotionValue(-100)
-  const y = useMotionValue(-100)
-  const sx = useSpring(x, { stiffness: 500, damping: 40, mass: 0.4 })
-  const sy = useSpring(y, { stiffness: 500, damping: 40, mass: 0.4 })
-  const [hover, setHover] = useState(false)
-  const [enabled] = useState(() => typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches)
-  useEffect(() => {
-    if (!enabled) return
-    const move = (e) => {
-      x.set(e.clientX)
-      y.set(e.clientY)
-      setHover(!!e.target.closest?.('a, button, [data-hover]'))
-    }
-    window.addEventListener('pointermove', move)
-    return () => window.removeEventListener('pointermove', move)
-  }, [enabled, x, y])
-  if (!enabled) return null
-  return (
-    <>
-      <motion.div className={`cursor-ring ${hover ? 'is-hover' : ''}`} style={{ x: sx, y: sy }} />
-      <motion.div className="cursor-dot" style={{ x, y }} />
-    </>
   )
 }
 

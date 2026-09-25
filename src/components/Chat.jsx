@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUp, RotateCcw, Sparkles, X } from 'lucide-react'
 import { profile } from '../data/profile'
 import { localAnswer } from '../lib/localBrain'
+import { REFUSAL, isAboutRohan } from '../lib/scope'
 import { Markdown, ease } from './ui'
 
 const SUGGESTIONS = [
@@ -20,6 +21,10 @@ const GREETING = {
 }
 
 async function ask(history) {
+  if (!isAboutRohan(history.at(-1).content)) {
+    await new Promise((res) => setTimeout(res, 400))
+    return REFUSAL
+  }
   try {
     const ctrl = new AbortController()
     const t = setTimeout(() => ctrl.abort(), 20000)

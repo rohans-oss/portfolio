@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import Lenis from 'lenis'
-import { Cursor, Nav, Preloader } from './components/Chrome'
+import { Nav, Preloader } from './components/Chrome'
 import Hero from './components/Hero'
 import { About, Contact, Education, Footer, Marquee, ProjectModal, Projects, Skills } from './components/Sections'
 import Chat from './components/Chat'
@@ -62,7 +62,6 @@ export default function App() {
   return (
     <>
       <Preloader onDone={() => setReady(true)} />
-      <Cursor />
       <div className="grain" aria-hidden="true" />
       <motion.div className="progress" style={{ scaleX: progress }} />
       <Nav onChat={() => setChatOpen(true)} scrollTo={scrollTo} />

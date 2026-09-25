@@ -151,18 +151,6 @@ export default function Hero({ ready, onChat, scrollTo }) {
             </div>
           </motion.div>
 
-          <motion.div className="float-badge fb-1" {...fadeIn(1.1)}>
-            <strong>94.8%</strong>
-            <span>NIDS accuracy</span>
-          </motion.div>
-          <motion.div className="float-badge fb-2" {...fadeIn(1.25)}>
-            <strong>4</strong>
-            <span>AI/ML systems</span>
-          </motion.div>
-          <motion.div className="float-badge fb-3" {...fadeIn(1.4)}>
-            <strong>8.0</strong>
-            <span>CGPA</span>
-          </motion.div>
         </motion.div>
       </div>
 
