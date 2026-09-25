@@ -101,7 +101,7 @@ const intents = [
   {
     keys: ['resume', 'cv', 'download', 'pdf'],
     weight: 1.5,
-    answer: () => `You can [download Rohan's one-page résumé (PDF)](${p.resume}). There's also a **Résumé** link at the top of the page.`,
+    answer: () => `You can [download Rohan's one-page resume (PDF)](${p.resume}). There's also a **Resume** link at the top of the page.`,
   },
   {
     keys: ['contact', 'email', 'mail', 'phone', 'call', 'reach', 'hire', 'github', 'linkedin', 'connect', 'number'],

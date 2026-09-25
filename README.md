@@ -1,5 +1,7 @@
 # Rohan S — Portfolio
 
+**Live:** https://rohans-oss.github.io/portfolio/
+
 Personal portfolio with a built-in AI assistant that answers questions about my projects, skills and background.
 
 **Stack:** React 19, Vite, Framer Motion, d3-force, self-hosted Schibsted Grotesk. A Vercel serverless function powers the AI chat.
@@ -11,8 +13,8 @@ Personal portfolio with a built-in AI assistant that answers questions about my 
 - **Map of my work**: an interactive force-directed graph of every project and the tools it uses. Point at a tool to trace where it's used; select a project to open its write-up. Nodes can be dragged.
 - **Project cards**: TrustRail, Drugos, MedFlow AI and Crop Disease, each with its own animated scene, 3D tilt on hover and a case-study pop-up (how it works, key facts, features, stack, GitHub link).
 - About, experience and education, skills, and a contact form that opens the visitor's email app.
-- **Résumé download** (`public/Rohan_S_Resume.pdf`).
-- **AI chat** that answers only questions about me, grounded in my résumé data, with an offline fallback.
+- **Resume download** (`public/Rohan_S_Resume.pdf`).
+- **AI chat** that answers only questions about me, grounded in my resume data, with an offline fallback.
 - White theme with subtle topographic backgrounds, scroll reveals, an animated project graph and skill tooltips. Keyboard accessible and respects reduced motion.
 
 ## Run locally (VS Code)
@@ -34,14 +36,14 @@ The site opens at **http://localhost:5173**. In VS Code you can also press **Ctr
 2. Paste one free key into it, e.g. `GEMINI_API_KEY=your-key-here`
 3. Restart `npm run dev`
 
-Without a key the chat still works using built-in offline answers from the résumé data. `.env` is git-ignored, so your key never gets pushed.
+Without a key the chat still works using built-in offline answers from the resume data. `.env` is git-ignored, so your key never gets pushed.
 
 | Command | What it does |
 | --- | --- |
 | `npm run dev` | Dev server with hot reload + local AI endpoint |
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build at http://localhost:4173 |
-| `npm run deploy:pages` | Build and publish to GitHub Pages |
+| `npm run deploy:pages` | Build and publish to GitHub Pages manually (pushing to `main` already does this automatically) |
 
 ## Deploy (Vercel, recommended)
 

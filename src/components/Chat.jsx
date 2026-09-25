@@ -144,7 +144,7 @@ export default function Chat({ open, setOpen, pending }) {
             <div className="chat-head">
               <div className="chat-title">
                 <strong>Ask about Rohan</strong>
-                <span>Answers come only from his résumé and projects</span>
+                <span>Answers come only from his resume and projects</span>
               </div>
               <button
                 className="chat-icon-btn"

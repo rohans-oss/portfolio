@@ -1,5 +1,5 @@
 // Single source of truth. The site, the offline chat engine and /api/chat all
-// read from this file. Content merged from Rohan's résumé and details sheet.
+// read from this file. Content merged from Rohan's resume and details sheet.
 
 const base = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.BASE_URL : '/'
 

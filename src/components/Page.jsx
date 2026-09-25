@@ -59,7 +59,7 @@ export function Header({ onChat }) {
           </button>
           <a className="btn btn-solid btn-small btn-download" href={p.resume} download={resumeName}>
             <Download size={15} aria-hidden="true" />
-            Résumé
+            Resume
           </a>
         </div>
       </div>
@@ -107,7 +107,7 @@ export function Hero({ onOpenProject, ready }) {
           <motion.div className="hero-actions" variants={heroItem}>
             <a className="btn btn-solid btn-download" href={p.resume} download={resumeName}>
               <Download size={17} aria-hidden="true" />
-              Download résumé
+              Download resume
             </a>
             <a className="btn btn-line" href={`mailto:${p.email}`}>
               <Mail size={17} aria-hidden="true" />
@@ -417,7 +417,7 @@ export function Footer() {
         <p>© {new Date().getFullYear()} Rohan S</p>
         <div className="footer-links">
           <a href={p.resume} download={resumeName}>
-            Résumé (PDF)
+            Resume (PDF)
           </a>
           <a href={`tel:${p.phoneRaw}`} aria-label="Call Rohan">
             <Phone size={15} />
