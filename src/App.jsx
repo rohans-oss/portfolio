@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { About, Contact, Footer, Header, Hero, Record, ScrollProgress, Skills, Work } from './components/Page'
+import { About, Contact, Footer, Header, Hero, Ideas, Record, ScrollProgress, Skills, ThankYou, Work } from './components/Page'
 import { CaseStudy } from './components/ProjectCards'
 import Intro from './components/Intro'
 import Chat from './components/Chat'
@@ -47,6 +47,8 @@ export default function App() {
         <Record />
         <Skills />
         <Contact />
+        <Ideas />
+        <ThankYou />
       </main>
       <Footer />
       <CaseStudy id={openId} onClose={closeProject} onAsk={askAbout} />

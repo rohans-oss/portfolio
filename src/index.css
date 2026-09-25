@@ -1255,6 +1255,178 @@ h2 {
   color: var(--muted);
 }
 
+
+/* ---------- Ideas ---------- */
+.ideas {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(180deg, #fff, #f2f8f6 60%, #fff);
+}
+.ideas-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--teal) 22%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at center, #000 10%, transparent 70%);
+  pointer-events: none;
+}
+.ideas-inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.connect {
+  display: block;
+  width: 400px;
+  max-width: 88vw;
+  height: auto;
+  overflow: visible;
+}
+.connect-line {
+  stroke: var(--saffron);
+  stroke-width: 2.5;
+  stroke-dasharray: 1 0;
+}
+.connect-you {
+  fill: var(--paper);
+  stroke: var(--teal);
+  stroke-width: 2.5;
+}
+.connect-me {
+  fill: var(--ink);
+}
+.connect-label {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--teal);
+  text-anchor: middle;
+}
+.connect-label-me {
+  fill: #fff;
+}
+.connect-spark {
+  fill: var(--saffron);
+}
+.connect-bulb {
+  fill: none;
+  stroke: #1d2b2a;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-ring {
+  fill: none;
+  stroke: var(--saffron);
+  stroke-width: 2;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ideaPulse 2.4s ease-out 2.4s infinite;
+}
+@keyframes ideaPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.ideas-title {
+  margin-top: 28px;
+  font-size: clamp(2.2rem, 1.2rem + 4vw, 4rem);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  max-width: 16ch;
+}
+.ideas-lede {
+  margin-top: 20px;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+  max-width: 46ch;
+  line-height: 1.55;
+}
+.idea-rotator {
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: bottom;
+  color: var(--teal);
+  font-weight: 700;
+}
+.idea-rotator > span {
+  display: inline-block;
+  white-space: nowrap;
+}
+.ideas-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.btn-glow {
+  position: relative;
+  animation: glowPulse 2.8s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 45%, transparent); }
+  50% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--teal) 0%, transparent); }
+}
+.btn-glow:hover svg {
+  animation: wiggle 0.5s ease;
+}
+@keyframes wiggle {
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+
+/* ---------- Thank you ---------- */
+.thanks {
+  padding-block: clamp(72px, 10vw, 128px) clamp(40px, 6vw, 72px);
+  text-align: center;
+}
+.thanks-title {
+  display: flex;
+  justify-content: center;
+  font-size: clamp(3.4rem, 1.4rem + 9vw, 9rem);
+  font-weight: 850;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--ink) 20%, var(--teal) 60%, var(--saffron));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.thanks-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+.thanks-mask > span {
+  display: inline-block;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.thanks-rule {
+  display: block;
+  width: min(280px, 60vw);
+  height: 4px;
+  margin: 18px auto 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--saffron));
+}
+.thanks-text {
+  margin: 22px auto 0;
+  max-width: 40ch;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+}
+.thanks-sign {
+  margin-top: 14px;
+  font-weight: 700;
+  color: var(--teal);
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   padding-block: 32px 96px;

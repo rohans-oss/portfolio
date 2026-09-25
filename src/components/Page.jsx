@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
-import { Download, Mail, MessageSquare, Phone } from 'lucide-react'
+import { ArrowUpRight, Download, Lightbulb, Mail, MessageSquare, Phone } from 'lucide-react'
 import { otherWork, profile as p, projects } from '../data/profile'
 import { ProjectGrid } from './ProjectCards'
 import WorkGraph from './WorkGraph'
@@ -405,6 +405,146 @@ export function Contact() {
             </p>
           </Reveal>
         </div>
+      </div>
+    </section>
+  )
+}
+
+/* ---------- Ideas: "let's build together" ---------- */
+const IDEA_KINDS = ['an AI tool', 'a startup idea', 'a hackathon project', 'a research problem', 'a fintech product', 'a healthcare app']
+
+function RotatingIdea() {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const t = setInterval(() => setI((v) => (v + 1) % IDEA_KINDS.length), 2200)
+    return () => clearInterval(t)
+  }, [])
+  return (
+    <span className="idea-rotator">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={i}
+          initial={{ y: '90%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '-90%', opacity: 0 }}
+          transition={{ duration: 0.45, ease }}
+        >
+          {IDEA_KINDS[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  )
+}
+
+// Two nodes (you and me) drift toward each other, link up, and light an idea.
+function Connect() {
+  return (
+    <motion.svg
+      className="connect"
+      viewBox="0 0 360 160"
+      initial="off"
+      whileInView="on"
+      viewport={{ once: true, margin: '0px 0px -15% 0px' }}
+      aria-hidden="true"
+    >
+      <motion.line
+        x1="70" y1="80" x2="290" y2="80"
+        className="connect-line"
+        variants={{ off: { pathLength: 0 }, on: { pathLength: 1, transition: { delay: 0.9, duration: 0.8, ease } } }}
+      />
+      <motion.g variants={{ off: { x: -40, opacity: 0 }, on: { x: 0, opacity: 1, transition: { duration: 0.9, ease } } }}>
+        <circle cx="70" cy="80" r="26" className="connect-you" />
+        <text x="70" y="85" className="connect-label">You</text>
+      </motion.g>
+      <motion.g variants={{ off: { x: 40, opacity: 0 }, on: { x: 0, opacity: 1, transition: { duration: 0.9, ease } } }}>
+        <circle cx="290" cy="80" r="26" className="connect-me" />
+        <text x="290" y="85" className="connect-label connect-label-me">Me</text>
+      </motion.g>
+      <motion.g
+        variants={{ off: { scale: 0, opacity: 0 }, on: { scale: 1, opacity: 1, transition: { delay: 1.6, type: 'spring', stiffness: 260, damping: 14 } } }}
+        style={{ transformOrigin: '180px 80px' }}
+      >
+        <circle cx="180" cy="80" r="22" className="connect-spark" />
+        <path d="M180 66c-7 0-12 5-12 11 0 4 2 7 5 9v5h14v-5c3-2 5-5 5-9 0-6-5-11-12-11Zm-5 29h10" className="connect-bulb" />
+      </motion.g>
+      <circle className="connect-ring" cx="180" cy="80" r="22" />
+    </motion.svg>
+  )
+}
+
+export function Ideas() {
+  const mail = `mailto:${p.email}?subject=${encodeURIComponent("Let's build something together")}&body=${encodeURIComponent(
+    "Hi Rohan,\n\nI have an idea I'd like to build with you:\n\n",
+  )}`
+  return (
+    <section className="section ideas" id="ideas">
+      <div className="ideas-bg" aria-hidden="true" />
+      <div className="wrap ideas-inner">
+        <Reveal>
+          <Connect />
+        </Reveal>
+        <Reveal as="h2" className="ideas-title">
+          Got an idea? Let’s build it together.
+        </Reveal>
+        <Reveal as="p" delay={0.1} className="ideas-lede">
+          Whether it’s <RotatingIdea />, I’d love to hear it. Tell me what you have in mind and we can figure out how to turn it
+          into something real.
+        </Reveal>
+        <Reveal delay={0.2} className="ideas-actions">
+          <a className="btn btn-solid btn-glow" href={mail}>
+            <Lightbulb size={17} aria-hidden="true" />
+            Share your idea
+          </a>
+          <a className="btn btn-line" href={p.linkedin} target="_blank" rel="noreferrer">
+            <LinkedinIcon size={16} />
+            Message me on LinkedIn
+            <ArrowUpRight size={15} className="nudge" aria-hidden="true" />
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+/* ---------- Thank you ---------- */
+export function ThankYou() {
+  const letters = [...'Thank you']
+  return (
+    <section className="thanks" aria-labelledby="thanks-title">
+      <div className="wrap">
+        <motion.h2
+          id="thanks-title"
+          className="thanks-title"
+          aria-label="Thank you"
+          initial="off"
+          whileInView="on"
+          viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+          variants={{ on: { transition: { staggerChildren: 0.05 } } }}
+        >
+          {letters.map((ch, i) => (
+            <span className="thanks-mask" key={i} aria-hidden="true">
+              <motion.span
+                variants={{ off: { y: '110%' }, on: { y: 0, transition: { duration: 0.7, ease } } }}
+              >
+                {ch === ' ' ? ' ' : ch}
+              </motion.span>
+            </span>
+          ))}
+        </motion.h2>
+        <motion.span
+          className="thanks-rule"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5, ease }}
+        />
+        <Reveal as="p" delay={0.6} className="thanks-text">
+          for taking the time to look through my work. I hope we get to build something together.
+        </Reveal>
+        <Reveal as="p" delay={0.75} className="thanks-sign">
+          Rohan S
+        </Reveal>
       </div>
     </section>
   )
