@@ -1,17 +1,17 @@
-# Rohan S · Portfolio
+# Rohan S — Portfolio
 
 Personal portfolio with a built-in AI assistant that answers questions about my projects, skills and background.
 
-**Stack:** React 19 · Vite · Framer Motion · Lenis smooth scroll · Vercel serverless function for the AI chat.
+**Stack:** React 19, Vite, Framer Motion, d3-force, self-hosted Schibsted Grotesk. A Vercel serverless function powers the AI chat.
 
-## Features
+## What's on the page
 
-- Animated preloader, split-letter hero reveal, rotating role text, parallax + 3D-tilt portrait
-- Scroll-linked word reveal, animated stat counters, infinite skills marquee
-- Sticky stacked project cards with animated SVG visuals and full case-study modals
-- Cursor spotlight bento grid, animated CGPA ring, magnetic buttons, custom cursor
-- **AI chat** grounded only in my résumé data, with suggested questions, typewriter replies and an offline fallback
-- Fully responsive, keyboard accessible (Esc closes dialogs), respects `prefers-reduced-motion`
+- **Map of my work**: an interactive force-directed graph of every project and the tools it uses. Point at a tool to trace where it's used; select a project to open its write-up. Nodes can be dragged.
+- **Selected work**: TrustRail, Drugos, MedFlow AI and Crop Disease, each expanding in place to show how it works, key facts, features and stack.
+- About, experience and education, skills, and a contact form that opens the visitor's email app.
+- **Résumé download** (`public/Rohan_S_Resume.pdf`).
+- **AI chat** that answers only questions about me, grounded in my résumé data, with an offline fallback.
+- Light and dark themes (follows the system setting), keyboard accessible, respects reduced motion.
 
 ## Run locally (VS Code)
 

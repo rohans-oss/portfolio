@@ -1,23 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUp, RotateCcw, Sparkles, X } from 'lucide-react'
-import { profile } from '../data/profile'
+import { ArrowUp, MessageSquare, RotateCcw, X } from 'lucide-react'
 import { localAnswer } from '../lib/localBrain'
 import { REFUSAL, isAboutRohan } from '../lib/scope'
-import { Markdown, ease } from './ui'
+import { Markdown } from './ui'
+
+const ease = [0.3, 0.7, 0.2, 1]
 
 const SUGGESTIONS = [
-  'Who is Rohan?',
-  'What is TrustRail?',
-  'Show me his ML skills',
+  'What has Rohan built?',
+  'How does TrustRail route payments?',
+  'Where did he intern?',
+  'What is he studying?',
   'Is he open to internships?',
-  'How did NIDS perform?',
-  'How can I contact him?',
 ]
 
 const GREETING = {
   role: 'assistant',
-  content: `Hi, I'm **Rohan's AI assistant**. I know his projects, skills, education and how to reach him. What would you like to know?`,
+  content: `Ask me about Rohan's projects, skills, education or experience. I only answer questions about him.`,
 }
 
 async function ask(history) {
@@ -68,7 +68,6 @@ export default function Chat({ open, setOpen, pending }) {
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const [typingIdx, setTypingIdx] = useState(-1)
-  const [nudge, setNudge] = useState(false)
   const scroller = useRef(null)
   const inputRef = useRef(null)
   const lastPending = useRef(null)
@@ -110,46 +109,23 @@ export default function Chat({ open, setOpen, pending }) {
     return () => window.removeEventListener('keydown', k)
   }, [open, setOpen])
 
-  useEffect(() => {
-    const t1 = setTimeout(() => setNudge(true), 5000)
-    const t2 = setTimeout(() => setNudge(false), 13000)
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-    }
-  }, [])
-
   const showSuggestions = msgs.length <= 2 && !busy
 
   return (
     <>
       <AnimatePresence>
         {!open && (
-          <motion.div
-            className="chat-launcher-wrap"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
+          <motion.button
+            className="chat-launcher"
+            onClick={() => setOpen(true)}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.25 }}
           >
-            <AnimatePresence>
-              {nudge && (
-                <motion.div
-                  className="chat-nudge"
-                  initial={{ opacity: 0, x: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  onClick={() => setOpen(true)}
-                >
-                  👋 Questions? Ask my AI about my work.
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <button className="chat-launcher" onClick={() => setOpen(true)} aria-label="Open AI chat">
-              <span className="chat-launcher-ring" />
-              <Sparkles size={22} />
-            </button>
-          </motion.div>
+            <MessageSquare size={18} aria-hidden="true" />
+            <span>Ask about Rohan</span>
+          </motion.button>
         )}
       </AnimatePresence>
 
@@ -166,13 +142,9 @@ export default function Chat({ open, setOpen, pending }) {
             data-lenis-prevent
           >
             <div className="chat-head">
-              <div className="chat-avatar">
-                <img src={profile.photo} alt="" />
-                <span className="chat-online" />
-              </div>
               <div className="chat-title">
-                <strong>Rohan's AI</strong>
-                <span>Answers from his résumé & projects</span>
+                <strong>Ask about Rohan</strong>
+                <span>Answers come only from his résumé and projects</span>
               </div>
               <button
                 className="chat-icon-btn"
@@ -240,7 +212,7 @@ export default function Chat({ open, setOpen, pending }) {
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about projects, skills, contact…"
+                placeholder="Type a question about Rohan"
                 maxLength={500}
                 aria-label="Your question"
               />

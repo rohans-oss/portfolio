@@ -1,6 +1,8 @@
 // Decides whether a question is about Rohan. Shared by the browser chat,
 // the offline engine and the /api/chat endpoint so all three refuse the same way.
-import { buildKnowledgeBase, projects } from '../data/profile.js'
+import { buildKnowledgeBase, otherWork, projects as mainProjects } from '../data/profile.js'
+
+const projects = [...mainProjects, ...otherWork]
 
 export const REFUSAL =
   "Sorry, I can't answer that. I can only answer questions about **Rohan**: his projects, skills, education and how to reach him. Try asking _\"What has Rohan built?\"_"
@@ -41,7 +43,9 @@ const TOPICS = new Set(
     'location based city live lives strength strengths best achievements achievement results accuracy ' +
     'ml ai machine learning model models deep data science web development frontend backend fullstack full-stack ' +
     'code coding repo repos repository perform performed performance score scores metric metrics f1 precision recall ' +
-    'dataset datasets result outcome impact problem solve solved approach architecture how-it-works case study'
+    'dataset datasets result outcome impact problem solve solved approach architecture how-it-works case study ' +
+    'achievement awards award hackathon hackathons startup interests interest goal goals career passion download pdf ' +
+    'coursework courses subjects semester year'
   ).split(' '),
 )
 
@@ -49,7 +53,7 @@ let VOCAB
 function vocab() {
   if (!VOCAB) {
     VOCAB = new Set(norm(buildKnowledgeBase()).split(' ').filter((w) => w.length > 1))
-    for (const pr of projects) VOCAB.add(pr.id).add(pr.name.toLowerCase())
+    for (const pr of projects) VOCAB.add(pr.id)
   }
   return VOCAB
 }
@@ -57,7 +61,7 @@ function vocab() {
 export function isAboutRohan(question) {
   const words = norm(question).split(' ').filter(Boolean)
   if (words.some((w) => SELF.has(w))) return true
-  const names = projects.flatMap((pr) => [pr.id, pr.name.toLowerCase()])
+  const names = projects.flatMap((pr) => [pr.id, pr.name.toLowerCase().split(' ')[0]]).concat('durgos')
   if (words.some((w) => names.includes(w))) return true
   const content = words.filter((w) => !STOP.has(w))
   if (!content.length) return true // pure greeting / small talk
