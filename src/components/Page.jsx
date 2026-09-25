@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
-import { ArrowUpRight, Download, Mail, MessageSquare, Minus, Phone, Plus } from 'lucide-react'
+import { Download, Mail, MessageSquare, Phone } from 'lucide-react'
 import { otherWork, profile as p, projects } from '../data/profile'
+import { ProjectGrid } from './ProjectCards'
 import WorkGraph from './WorkGraph'
 import { GithubIcon, LinkedinIcon } from './ui'
 
@@ -75,12 +76,12 @@ const heroItem = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 }
 
-export function Hero({ onOpenProject }) {
+export function Hero({ onOpenProject, ready }) {
   return (
     <section className="hero" id="top">
       <div className="hero-bg" aria-hidden="true" />
       <div className="wrap hero-grid">
-        <motion.div className="hero-text" variants={heroStagger} initial="hidden" animate="show">
+        <motion.div className="hero-text" variants={heroStagger} initial="hidden" animate={ready ? 'show' : 'hidden'}>
           <motion.p className="hero-hello" variants={heroItem}>
             <span className="status-dot" aria-hidden="true" />
             Open to software and AI/ML internships
@@ -125,8 +126,8 @@ export function Hero({ onOpenProject }) {
         <motion.figure
           className="hero-graph"
           initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.25, ease }}
+          animate={ready ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.9, delay: 0.35, ease }}
         >
           <WorkGraph onOpen={onOpenProject} />
           <figcaption>
@@ -139,91 +140,7 @@ export function Hero({ onOpenProject }) {
   )
 }
 
-const panelList = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06, delayChildren: 0.12 } },
-}
-const panelItem = {
-  hidden: { opacity: 0, x: -8 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.35, ease } },
-}
-
-function ProjectRow({ pr, open, onToggle, onAsk, index }) {
-  const panelId = `panel-${pr.id}`
-  return (
-    <Reveal as="article" delay={index * 0.06} className={`project ${open ? 'is-open' : ''}`} id={`project-${pr.id}`}>
-      <h3 className="project-heading">
-        <button className="project-toggle" aria-expanded={open} aria-controls={panelId} onClick={onToggle}>
-          <span className="project-name">{pr.name}</span>
-          <span className="project-tagline">{pr.tagline}</span>
-          <span className="project-domain">{pr.domain}</span>
-          <span className="project-icon" aria-hidden="true">
-            {open ? <Minus size={20} /> : <Plus size={20} />}
-          </span>
-        </button>
-      </h3>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id={panelId}
-            className="project-panel"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.45, ease }}
-          >
-            <div className="panel-grid">
-              <div className="panel-main">
-                <p className="panel-summary">{pr.summary}</p>
-                <h4>How it works</h4>
-                <motion.ol className="steps" variants={panelList} initial="hidden" animate="show">
-                  {pr.how.map((s, i) => (
-                    <motion.li key={i} variants={panelItem}>
-                      {s}
-                    </motion.li>
-                  ))}
-                </motion.ol>
-              </div>
-              <div className="panel-side">
-                <motion.dl className="facts" variants={panelList} initial="hidden" animate="show">
-                  {pr.facts.map(([k, v]) => (
-                    <motion.div key={k} variants={panelItem}>
-                      <dt>{k}</dt>
-                      <dd>{v}</dd>
-                    </motion.div>
-                  ))}
-                </motion.dl>
-                <h4>Features</h4>
-                <ul className="features">
-                  {pr.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-                <h4>Built with</h4>
-                <p className="stack">{pr.stack.join(', ')}</p>
-                <div className="panel-actions">
-                  {pr.github && (
-                    <a className="btn btn-solid btn-small" href={pr.github} target="_blank" rel="noreferrer">
-                      <GithubIcon size={15} />
-                      View code on GitHub
-                      <ArrowUpRight size={15} aria-hidden="true" className="nudge" />
-                    </a>
-                  )}
-                  <button className="btn btn-text" onClick={() => onAsk(`Tell me more about ${pr.name}`)}>
-                    <MessageSquare size={15} aria-hidden="true" />
-                    Ask the assistant about {pr.name}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </Reveal>
-  )
-}
-
-export function Work({ openId, setOpenId, onAsk }) {
+export function Work({ onOpen }) {
   const nids = otherWork[0]
   return (
     <section className="section section-work" id="work">
@@ -231,22 +148,11 @@ export function Work({ openId, setOpenId, onAsk }) {
         <div className="section-intro">
           <Reveal as="h2">Selected work</Reveal>
           <Reveal as="p" delay={0.08}>
-            Four systems I designed and built, from the model to the interface. Open one to see how it works, or go straight
-            to the code.
+            Four systems I designed and built, from the model to the interface. Open a card for the full case study, or go
+            straight to the code.
           </Reveal>
         </div>
-        <div className="project-list">
-          {projects.map((pr, i) => (
-            <ProjectRow
-              key={pr.id}
-              index={i}
-              pr={pr}
-              open={openId === pr.id}
-              onToggle={() => setOpenId(openId === pr.id ? null : pr.id)}
-              onAsk={onAsk}
-            />
-          ))}
-        </div>
+        <ProjectGrid onOpen={onOpen} />
         <Reveal className="also" id={`project-${nids.id}`}>
           <h3>Also built</h3>
           <div className="also-row">

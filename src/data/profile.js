@@ -18,8 +18,7 @@ export const profile = {
   linkedinHandle: 'rohan-s-553768336',
   resume: `${base}Rohan_S_Resume.pdf`,
   availability: 'Open to software and AI/ML internships',
-  statement:
-    'I build machine-learning systems end to end and ship them as usable products, mostly in payments, healthcare and drug discovery.',
+  statement: 'I build AI systems that move beyond notebooks and into real products.',
   intro:
     'I’m a Computer Science student at Atria University with an interest in software development, AI/ML, and building practical technology projects. I enjoy learning new technologies and turning real-world problems into working solutions.',
   about: [
