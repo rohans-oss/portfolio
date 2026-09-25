@@ -1,10 +1,10 @@
-/* Rohan S portfolio
+/* Rohan S portfolio (light theme only, pure white background)
    Palette is taken from the résumé so the site and the PDF read as one identity.
    One typeface (Schibsted Grotesk); hierarchy comes from size and weight only. */
 
 :root {
-  --paper: #fbfcfb;
-  --panel: #eaf1ef;
+  --paper: #ffffff;
+  --panel: #eef4f2;
   --ink: #1d2b2a;
   --ink-soft: #3c4a48;
   --muted: #5e6b69;
@@ -27,23 +27,6 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0f1917;
-    --panel: #172422;
-    --ink: #e4ecea;
-    --ink-soft: #c3cfcc;
-    --muted: #93a29f;
-    --line: #26332f;
-    --line-strong: #3b4a46;
-    --teal: #4fb3a9;
-    --teal-strong: #7cccc3;
-    --saffron: #f0b63a;
-    --on-teal: #0b1413;
-    --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
-    color-scheme: dark;
-  }
-}
 
 *,
 *::before,
@@ -141,6 +124,24 @@ ul {
   white-space: nowrap;
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
+.btn svg {
+  transition: transform 0.2s ease;
+}
+.btn-download:hover svg {
+  animation: drop 0.6s ease;
+}
+@keyframes drop {
+  40% {
+    transform: translateY(3px);
+  }
+}
+.btn:hover .nudge {
+  transform: translate(2px, -2px);
+}
+.btn-solid:active,
+.btn-line:active {
+  transform: translateY(1px);
+}
 .btn-small {
   min-height: 38px;
   padding: 0 14px;
@@ -152,6 +153,7 @@ ul {
 }
 .btn-solid:hover {
   background: var(--teal-strong);
+  box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--teal) 70%, transparent);
 }
 .btn-line {
   border: 1.5px solid var(--line-strong);
@@ -172,6 +174,16 @@ ul {
 }
 
 /* ---------- Header ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 45;
+  background: linear-gradient(90deg, var(--teal), var(--saffron));
+  transform-origin: 0 50%;
+}
 .site-header {
   position: sticky;
   top: 0;
@@ -180,6 +192,10 @@ ul {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.25s;
+}
+.site-header.is-scrolled {
+  box-shadow: 0 8px 24px -18px rgba(16, 45, 41, 0.35);
 }
 .header-row {
   display: flex;
@@ -199,15 +215,29 @@ ul {
   margin-left: auto;
 }
 .header-nav a {
+  position: relative;
   padding: 8px 12px;
-  border-radius: 8px;
   text-decoration: none;
   color: var(--ink-soft);
   font-weight: 500;
 }
+.header-nav a::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.25s ease;
+}
 .header-nav a:hover {
   color: var(--ink);
-  background: var(--panel);
+}
+.header-nav a:hover::after {
+  transform: scaleX(1);
 }
 
 .header-actions {
@@ -226,14 +256,69 @@ ul {
 
 /* ---------- Hero ---------- */
 .hero {
+  position: relative;
+  overflow: hidden;
   padding-block: clamp(40px, 7vw, 88px) clamp(56px, 8vw, 104px);
   border-bottom: 1px solid var(--line);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('./assets/bg/contours-hero.svg') center / cover no-repeat;
+  opacity: 0.28;
+  -webkit-mask-image: linear-gradient(100deg, transparent 5%, #000 45%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(100deg, transparent 5%, #000 45%, #000 85%, transparent 100%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: relative;
+}
+.hero-hello {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 6px 12px 6px 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2f9e62;
+}
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #2f9e62;
+  animation: ripple 2.4s ease-out infinite;
+}
+@keyframes ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
 }
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: clamp(32px, 5vw, 64px);
   align-items: center;
+}
+.hero-text {
+  position: relative;
 }
 .hero h1 {
   font-size: var(--step-5);
@@ -307,7 +392,9 @@ ul {
 .graph {
   width: 100%;
   border-radius: 16px;
-  background: var(--panel);
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(2px);
   overflow: hidden;
   touch-action: pan-y;
 }
@@ -380,6 +467,9 @@ ul {
   fill: var(--saffron);
   stroke: var(--saffron);
 }
+.pulse {
+  fill: var(--saffron);
+}
 .node.is-dim {
   opacity: 0.22;
 }
@@ -417,12 +507,54 @@ h2 {
   top: 96px;
 }
 
+.section-work {
+  position: relative;
+  background-image: radial-gradient(color-mix(in srgb, var(--teal) 22%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  background-position: 0 0;
+}
+.section-work::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--paper) 0%, transparent 18%, transparent 60%, var(--paper) 100%),
+    linear-gradient(90deg, var(--paper) 0%, transparent 30%, transparent 70%, var(--paper) 100%);
+  pointer-events: none;
+}
+.section-work > .wrap {
+  position: relative;
+}
+.section-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+
 /* ---------- Projects ---------- */
 .project-list {
   border-top: 1.5px solid var(--ink);
 }
 .project {
+  position: relative;
   border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.project::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--teal);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+.project:hover::before,
+.project.is-open::before {
+  transform: scaleY(1);
 }
 .project-heading {
   font-size: inherit;
@@ -441,6 +573,22 @@ h2 {
 }
 .project-toggle:hover {
   background: var(--panel);
+}
+.project-name,
+.project-tagline {
+  transition: transform 0.3s ease, color 0.2s;
+}
+.project-toggle:hover .project-name {
+  transform: translateX(8px);
+}
+.project-toggle:hover .project-tagline {
+  transform: translateX(4px);
+}
+.project-icon svg {
+  transition: transform 0.3s ease;
+}
+.project-toggle:hover .project-icon svg {
+  transform: rotate(90deg);
 }
 .project-name {
   font-size: var(--step-2);
@@ -661,8 +809,69 @@ h2 {
 .skills td {
   color: var(--ink-soft);
 }
+.skill {
+  position: relative;
+}
+.skill-used {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--teal);
+  text-underline-offset: 4px;
+  outline: none;
+  transition: color 0.15s;
+}
+.skill-used:hover,
+.skill-used:focus-visible {
+  color: var(--teal);
+}
+.skill-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  translate: -50% 0;
+  z-index: 5;
+  width: max-content;
+  max-width: 240px;
+  padding: 7px 10px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 8px;
+  pointer-events: none;
+  white-space: normal;
+}
+.skill-tip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  translate: -50% 0;
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
 
 /* ---------- Contact ---------- */
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+.contact-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 75%;
+  background: url('./assets/bg/contours-wide.svg') center bottom / cover no-repeat;
+  opacity: 0.22;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 60%);
+  mask-image: linear-gradient(180deg, transparent, #000 60%);
+  pointer-events: none;
+}
+.contact > .wrap {
+  position: relative;
+}
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -686,8 +895,10 @@ h2 {
   gap: 18px;
   align-content: start;
   padding: clamp(20px, 3vw, 32px);
-  background: var(--panel);
+  background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: 16px;
+  box-shadow: 0 30px 60px -40px rgba(16, 45, 41, 0.4);
 }
 .contact-form label {
   display: grid;
@@ -950,6 +1161,11 @@ h2 {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
+  .hero-bg {
+    opacity: 0.12;
+    -webkit-mask-image: linear-gradient(180deg, #000, transparent 70%);
+    mask-image: linear-gradient(180deg, #000, transparent 70%);
+  }
   .hero-grid,
   .section-intro,
   .two-col,

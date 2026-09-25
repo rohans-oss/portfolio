@@ -36,11 +36,29 @@ function buildGraph() {
   return { nodes, links }
 }
 
+// A dot that travels along an edge from a tool into the project that uses it.
+function Pulse({ x1, y1, x2, y2, loop }) {
+  const start = (el) => el && el.beginElement?.()
+  const dur = loop ? '1.1s' : '1.5s'
+  return (
+    <circle className="pulse" r={3.2} opacity={0}>
+      <animateMotion ref={start} begin="indefinite" dur={dur} repeatCount={loop ? 'indefinite' : 1} path={`M${x2},${y2} L${x1},${y1}`} />
+      <animate ref={start} attributeName="opacity" begin="indefinite" dur={dur} repeatCount={loop ? 'indefinite' : 1} values="0;1;1;0" keyTimes="0;0.15;0.8;1" />
+    </circle>
+  )
+}
+
 export default function WorkGraph({ onOpen }) {
   const wrap = useRef(null)
   const [size, setSize] = useState({ w: 640, h: 520 })
   const [snap, setSnap] = useState(null)
   const [focus, setFocus] = useState(null)
+  const [beat, setBeat] = useState(0)
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const t = setInterval(() => setBeat((b) => b + 1), 1700)
+    return () => clearInterval(t)
+  }, [])
   const sim = useRef(null)
   const drag = useRef(null)
 
@@ -186,6 +204,17 @@ export default function WorkGraph({ onOpen }) {
               />
             )
           })}
+        </g>
+        <g className="graph-pulses" aria-hidden="true">
+          {focus
+            ? snap.links
+                .filter((l) => l.s === focus || l.t === focus)
+                .map((l, i) => <Pulse key={`f-${focus}-${i}`} {...l} loop />)
+            : beat > 0 &&
+              [0, 1, 2].map((k) => {
+                const l = snap.links[(beat * 7 + k * 13) % snap.links.length]
+                return <Pulse key={`b-${beat}-${k}`} {...l} />
+              })}
         </g>
         {snap.nodes.map((n) => {
           const isProject = n.kind === 'project'

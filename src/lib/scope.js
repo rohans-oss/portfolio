@@ -45,7 +45,7 @@ const TOPICS = new Set(
     'code coding repo repos repository perform performed performance score scores metric metrics f1 precision recall ' +
     'dataset datasets result outcome impact problem solve solved approach architecture how-it-works case study ' +
     'achievement awards award hackathon hackathons startup interests interest goal goals career passion download pdf ' +
-    'coursework courses subjects semester year'
+    'coursework courses subjects semester year school schooling schooled puc pre-university 10th 12th sslc cbse intermediate high'
   ).split(' '),
 )
 

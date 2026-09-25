@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { About, Contact, Footer, Header, Hero, Record, Skills, Work } from './components/Page'
+import { About, Contact, Footer, Header, Hero, Record, ScrollProgress, Skills, Work } from './components/Page'
 import Chat from './components/Chat'
 
 export default function App() {
@@ -31,6 +31,7 @@ export default function App() {
       <a className="skip-link" href="#work">
         Skip to work
       </a>
+      <ScrollProgress />
       <Header onChat={() => setChatOpen(true)} />
       <main>
         <Hero onOpenProject={openProject} />

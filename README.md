@@ -7,11 +7,11 @@ Personal portfolio with a built-in AI assistant that answers questions about my 
 ## What's on the page
 
 - **Map of my work**: an interactive force-directed graph of every project and the tools it uses. Point at a tool to trace where it's used; select a project to open its write-up. Nodes can be dragged.
-- **Selected work**: TrustRail, Drugos, MedFlow AI and Crop Disease, each expanding in place to show how it works, key facts, features and stack.
+- **Selected work**: TrustRail, Drugos, MedFlow AI and Crop Disease, each expanding in place to show how it works, key facts, features, stack and a link to its GitHub repo.
 - About, experience and education, skills, and a contact form that opens the visitor's email app.
 - **Résumé download** (`public/Rohan_S_Resume.pdf`).
 - **AI chat** that answers only questions about me, grounded in my résumé data, with an offline fallback.
-- Light and dark themes (follows the system setting), keyboard accessible, respects reduced motion.
+- White theme with subtle topographic backgrounds, scroll reveals, an animated project graph and skill tooltips. Keyboard accessible and respects reduced motion.
 
 ## Run locally (VS Code)
 

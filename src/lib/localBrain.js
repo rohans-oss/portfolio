@@ -88,7 +88,15 @@ const intents = [
   {
     keys: ['education', 'college', 'university', 'degree', 'cgpa', 'gpa', 'study', 'studying', 'atria', 'graduate', 'graduation', 'btech', 'b.tech', 'marks', 'semester', 'coursework', 'courses', 'subjects'],
     answer: () =>
-      `Rohan is doing a **${p.education.degree}** (${p.education.focus}) at **${p.education.school}**, ${p.education.city}, ${p.education.period}. He's in his 3rd year, with a CGPA of **${p.education.cgpa}**.\n\n**Coursework:** ${p.education.coursework.join(', ')}.`,
+      `Rohan is doing a **${p.education.degree}** (${p.education.focus}) at **${p.education.school}**, ${p.education.city}, ${p.education.period}. He's in his 3rd year, with a CGPA of **${p.education.cgpa}**.\n\n**Coursework:** ${p.education.coursework.join(', ')}.\n\n**Before that:** PUC at ${p.education.schooling[0].school}, ${p.education.schooling[0].place}, and schooling at ${p.education.schooling[1].school}, ${p.education.schooling[1].place}.`,
+  },
+  {
+    keys: ['school', 'schooling', 'schooled', 'puc', 'pre-university', 'preuniversity', '10th', '12th', 'sslc', 'cbse', 'intermediate', 'jalappa', 'chaitanya', 'kolar', 'tamaka', 'tirupati', 'andhra', 'before college', 'high school'],
+    weight: 2,
+    answer: () =>
+      `Rohan's earlier education:\n\n${p.education.schooling
+        .map((x) => `- **${x.level}:** ${x.school}, ${x.place}`)
+        .join('\n')}\n\nHe's now doing a **${p.education.degree}** (${p.education.focus}) at **${p.education.school}**, ${p.education.period}.`,
   },
   {
     keys: ['resume', 'cv', 'download', 'pdf'],

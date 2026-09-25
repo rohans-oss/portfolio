@@ -59,6 +59,10 @@ export const profile = {
     period: '2024 – 2028',
     graduation: 2028,
     cgpa: '8.0 / 10',
+    schooling: [
+      { level: 'Pre-university (PUC)', school: 'Sri Chaitanya College', place: 'Tirupati, Andhra Pradesh' },
+      { level: 'Schooling', school: 'R. L. Jalappa Central School', place: 'Tamaka, Kolar, Karnataka' },
+    ],
     coursework: [
       'Data Structures & Algorithms',
       'Object-Oriented Programming',
@@ -122,7 +126,7 @@ export const projects = [
     ],
     stack: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'scikit-learn', 'EconML', 'Prisma', 'SQLite'],
     figure: 'Two-stage pipeline: risk screening before causal routing.',
-    github: null,
+    github: 'https://github.com/rohans-oss/TrustRail',
   },
   {
     id: 'drugos',
@@ -154,7 +158,7 @@ export const projects = [
     ],
     stack: ['Python', 'PyTorch Geometric', 'Graph Transformer', 'Reinforcement Learning', 'Neo4j', 'FastAPI', 'React'],
     figure: 'Knowledge graph with a predicted drug → disease link (dashed).',
-    github: null,
+    github: 'https://github.com/rohans-oss/drugos',
   },
   {
     id: 'medflow',
@@ -189,7 +193,7 @@ export const projects = [
     ],
     stack: ['React', 'Python', 'FastAPI', 'PostgreSQL', 'SQLite', 'Neo4j', 'OR-Tools', 'Machine Learning'],
     figure: 'Forecast → optimise → order, with expiry-first stock rotation.',
-    github: null,
+    github: 'https://github.com/rohans-oss/MedFlow-AI',
   },
   {
     id: 'crop',
@@ -258,6 +262,7 @@ export function buildKnowledgeBase() {
     ...p.about.map((a) => `${a.k.toUpperCase()}: ${a.v}`),
     `INTERESTS: ${p.interests.join(', ')}`,
     `EDUCATION: ${e.degree} (${e.focus}), ${e.school}, ${e.city}, ${e.period}. CGPA ${e.cgpa}. Coursework: ${e.coursework.join(', ')}.`,
+    `EARLIER EDUCATION: ${e.schooling.map((x) => `${x.level} at ${x.school}, ${x.place}`).join('; ')}.`,
     `EXPERIENCE: ${p.experience.map((x) => `${x.role} at ${x.org}`).join('; ')}`,
     `ACHIEVEMENTS: ${p.achievements.map((a) => `${a.title}: ${a.detail}`).join(' ')}`,
     `SPOKEN LANGUAGES: ${p.languages.join(', ')}`,
