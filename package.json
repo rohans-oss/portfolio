@@ -8,7 +8,10 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "deploy:pages": "vite build --base /portfolio/ && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && gh-pages -d dist -t"
+    "deploy:pages": "vite build --base /portfolio/ && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && gh-pages -d dist -t",
+    "test:chat": "node scripts/test-chat.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "test": "npm run check:content && npm run test:chat"
   },
   "dependencies": {
     "@fontsource-variable/schibsted-grotesk": "^5.3.0",

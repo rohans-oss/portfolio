@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "rohan-portfolio": {
+      "source": {
+        "source": "github",
+        "repo": "rohans-oss/portfolio"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "portfolio-kit@rohan-portfolio": true
+  }
+}

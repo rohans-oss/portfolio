@@ -1,6 +1,7 @@
 name: Deploy to GitHub Pages
 
-# Rebuilds the site and publishes it to the gh-pages branch on every push to main.
+# On every push to main: lint, run the content and chat tests, then rebuild the
+# site and publish it to the gh-pages branch. If a test fails, nothing is deployed.
 on:
   push:
     branches: [main]
@@ -23,6 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Lint
+        run: npx oxlint src api scripts
+      - name: Content and chat tests
+        run: npm test
       - run: npx vite build --base /portfolio/
       - run: touch dist/.nojekyll
       - name: Publish dist to gh-pages

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rohan-portfolio",
+  "description": "Claude Code tooling for working on Rohan S's portfolio site",
+  "owner": {
+    "name": "Rohan S",
+    "email": "srohan02293@gmail.com",
+    "url": "https://github.com/rohans-oss"
+  },
+  "plugins": [
+    {
+      "name": "portfolio-kit",
+      "source": "./plugins/portfolio-kit",
+      "description": "Skills, commands and hooks for editing, testing and deploying the portfolio"
+    }
+  ]
+}

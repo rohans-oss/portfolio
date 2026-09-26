@@ -41,11 +41,21 @@ Without a key the chat still works using built-in offline answers from the resum
 | Command | What it does |
 | --- | --- |
 | `npm run dev` | Dev server with hot reload + local AI endpoint |
+| `npm test` | Content checks and chat tests (also run in CI before every deploy) |
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build at http://localhost:4173 |
 | `npm run deploy:pages` | Build and publish to GitHub Pages manually (pushing to `main` already does this automatically) |
 
-## Deploy (Vercel, recommended)
+## Project docs
+
+- [`CLAUDE.md`](CLAUDE.md) — conventions for working in this repo (with or without Claude Code)
+- [`docs/PLAN.md`](docs/PLAN.md) — plan and spec: features, plugin components, done vs pending
+
+## Claude Code plugin
+
+`plugins/portfolio-kit` adds three skills (`portfolio-content`, `chat-guardrails`, `deploy-pages`), four commands (`/portfolio-kit:add-project`, `test-chat`, `preflight`, `deploy-status`) and three hooks (file guard, tests after content edits, checks before `git push`). It's enabled for this project in `.claude/settings.json`; see `docs/PLAN.md` for details.
+
+## Deploy (Vercel, for the LLM chat)
 
 1. Import this repo at [vercel.com/new](https://vercel.com/new). Vite is detected automatically.
 2. In **Settings → Environment Variables**, add **one** of:

@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-kit",
+  "displayName": "Portfolio Kit",
+  "version": "1.0.0",
+  "description": "Skills, slash commands and hooks for editing, testing and deploying Rohan S's portfolio site",
+  "author": {
+    "name": "Rohan S",
+    "email": "srohan02293@gmail.com",
+    "url": "https://github.com/rohans-oss"
+  },
+  "homepage": "https://rohans-oss.github.io/portfolio/",
+  "repository": "https://github.com/rohans-oss/portfolio",
+  "license": "MIT",
+  "keywords": ["portfolio", "react", "vite", "github-pages", "chatbot"]
+}
